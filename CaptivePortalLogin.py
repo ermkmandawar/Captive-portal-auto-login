@@ -6,7 +6,7 @@ import os
 
 #Captive Portal or Login URL of your WiFi
 while(True):
-    url = 'http://192.168.70.1:8002/index.php?zone=mitrc&redirurl=http%3A%2F%2Fwww.gstatic.com%2Fgenerate_204'
+    url = 'http://192.168.70.1:8002/index.php?zone=mitrc&redirurl=http%3A%2F%2Fwww.gstatic.com%2Fgenerate_204' 
 
     br = Browser()
     status = br.open(url).code
@@ -22,9 +22,14 @@ while(True):
     pg=mechanize.Browser()
     pg.set_handle_robots(False)
     r=pg.open(url)
+    
+    #form id
     pg.select_form(nr=0)
-    pg.form["auth_user"] = "manish_cs"
-    pg.form["auth_pass"] = "9116"
+    
+    #Your username and password
+    pg.form["auth_user"] = input("Username: ")
+    pg.form["auth_pass"] = input("Password: ")
+    
     pg.method="POST"
     r=pg.submit()
     pageAsaString = str(r.read())
@@ -44,7 +49,7 @@ while(True):
      else:
         _ = os.system('clear')
 
-    # Time in Seconds
+    # Time in Seconds (In howmuch time you want to auto re-login)
     t = '10'
 
     # Define function
@@ -53,7 +58,7 @@ while(True):
         while t:
             mins, secs = divmod(t, 60)
             timer = '{:02d}:{:02d}'.format(mins, secs)
-            print("Window will reload in: ",timer, end="\r")
+            print("Auto Re-Login in: ",timer, end="\r")
             time.sleep(1)
             t -= 1
     #  Function call
